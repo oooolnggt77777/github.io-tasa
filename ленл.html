@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отдых в лагере</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="#intro">Главная</a></li>
+                <li><a href="#camp-life">Жизнь в лагере</a></li>
+                <li><a href="#activities">Активности</a></li>
+                <li><a href="#photos">Фотоальбом</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
+                <li><a href="#contact">Связаться с нами</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction Section -->
+        <section id="intro" class="hero-section">
+            <h1>Детский лагерь: воспоминания на всю жизнь</h1>
+            <p>Представляем вашему вниманию незабываемый опыт летнего отдыха в живописном месте рядом с лесом и озером.</p>
+            <a href="#camp-life" class="btn">Узнать подробнее →</a>
+        </section>
+
+        <!-- Camp Life Section -->
+        <section id="camp-life" class="content-section">
+            <h2>Жизнь в лагере</h2>
+            <article>
+                <h3>Расписание дня</h3>
+                <p>Каждый день в нашем лагере насыщенный и интересный. Утро начинается с зарядки и завтрака, после которого начинаются занятия спортом, мастер-классы и творческие мероприятия. После обеда дети участвуют в квестах, спортивных соревнованиях и играх на свежем воздухе. Вечером проходят концерты, киносеансы и костры с песнями под гитару.</p>
+            </article>
+            <article>
+                <h3>Комфорт и безопасность</h3>
+                <p>Мы заботимся о комфорте наших гостей. Каждый ребенок получает уютную комнату с удобствами, питание организовано профессионально и разнообразно. Наш медицинский персонал круглосуточно следит за здоровьем детей, обеспечивая медицинскую помощь при необходимости.</p>
+            </article>
+        </section>
+
+        <!-- Activities Section -->
+        <section id="activities" class="content-section">
+            <h2>Наши активности</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <img src="sport.jpg" alt="Спортивные соревнования">
+                    <h3>Спортивные игры</h3>
+                    <p>Футбол, волейбол, баскетбол, теннис — мы организуем турниры, тренировки и дружеские матчи.</p>
+                </div>
+                <div class="activity-card">
+                    <img src="crafts.jpg" alt="Мастер-класс">
+                    <h3>Творческие мастер-классы</h3>
+                    <p>Рисование, лепка, декупаж, создание украшений — каждый найдет занятие по душе.</p>
+                </div>
+                <div class="activity-card">
+                    <img src="music.jpg" alt="Музыкальные вечера">
+                    <h3>Музыкальные вечера</h3>
+                    <p>Караоке, танцы, музыкальные шоу — отличная возможность проявить талант и насладиться искусством.</p>
+                </div>
+                <div class="activity-card">
+                    <img src="nature.jpg" alt="Природа">
+                    <h3>Экскурсии и походы</h3>
+                    <p>Прогулки по лесу, пикники на берегу озера, экскурсии в соседние города — мы открываем мир природы и приключений.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section id="photos" class="content-section">
+            <h2>Наш фотоальбом</h2>
+            <div class="photo-gallery">
+                <img src="gallery1.jpg" alt="Групповое фото">
+                <img src="gallery2.jpg" alt="Игры на природе">
+                <img src="gallery3.jpg" alt="Вечеринка у костра">
+                <img src="gallery4.jpg" alt="Соревнования по футболу">
+                <img src="gallery5.jpg" alt="Посещение музея">
+                <img src="gallery6.jpg" alt="Поход в горы">
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="content-section">
+            <h2>Отзывы участников лагеря</h2>
+            <div class="testimonial-container">
+                <blockquote>
+                    Я провела лето в вашем лагере и поняла, насколько важны дружба и общение с природой. Спасибо вам за прекрасные дни!
+                    <cite>- Анна Петровская</cite>
+                </blockquote>
+                <blockquote>
+                    Лагерь подарил нам море эмоций и новых друзей. Мы играли, занимались творчеством и познавали окружающий мир. Было круто!
+                    <cite>- Дмитрий Семенов</cite>
+                </blockquote>
+                <blockquote>
+                    Никогда бы не подумал, что лагерная жизнь настолько захватывающая и интересная. Это было лучшее лето моей жизни!
+                    <cite>- Мария Иванова</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="content-section contact-form">
+            <h2>Свяжитесь с нами</h2>
+            <form action="#" method="POST">
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name" required placeholder="Иван Иванов">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required placeholder="ivan@example.com">
+                <label for="message">Сообщение:</label>
+                <textarea id="message" rows="4" required placeholder="Напишите ваше сообщение..."></textarea>
+                <button type="submit">Отправить</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Детский лагерь "Радуга"</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
