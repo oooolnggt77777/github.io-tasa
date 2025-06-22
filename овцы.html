@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пастух Овец</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #ff8b94;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px auto;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pasture {
+            width: 45%;
+            min-height: 400px;
+            border: 3px dashed #ffaaa5;
+            border-radius: 15px;
+            padding: 10px;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+            .pasture:hover {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+
+            .pasture h2 {
+                color: #ff8b94;
+                margin-top: 0;
+            }
+
+        .sheep {
+            width: 60px;
+            height: 60px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="white" stroke="black" stroke-width="2"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><path d="M40 65 Q50 75 60 65" fill="none" stroke="black" stroke-width="2"/><circle cx="30" cy="30" r="10" fill="white"/><circle cx="70" cy="30" r="10" fill="white"/></svg>');
+            background-size: contain;
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .sheep:hover {
+                transform: scale(1.1);
+            }
+
+        .stats {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #ffaaa5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            button:hover {
+                background-color: #ff8b94;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+
+        .message {
+            font-size: 18px;
+            color: #ff8b94;
+            font-weight: bold;
+            height: 25px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐑 Пастух Овец 🐑</h1>
+    <p>Помоги овечкам перебраться на зеленые пастбища! Кликай на овец, чтобы перемещать их.</p>
+
+    <div class="stats">
+        <p>Овец перемещено: <span id="score">0</span></p>
+        <p>Рекорд: <span id="high-score">0</span></p>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <button id="start-btn">Начать игру</button>
+    <button id="add-sheep">Добавить овечку</button>
+
+    <div class="game-container">
+        <div class="pasture" id="pasture1">
+            <h2>Старое пастбище</h2>
+        </div>
+
+        <div class="pasture" id="pasture2">
+            <h2>Новое пастбище</h2>
+        </div>
+    </div>
+
+    <script>
+        const pasture1 = document.getElementById('pasture1');
+        const pasture2 = document.getElementById('pasture2');
+        const startBtn = document.getElementById('start-btn');
+        const addSheepBtn = document.getElementById('add-sheep');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('high-score');
+        const messageElement = document.getElementById('message');
+
+        let score = 0;
+        let highScore = localStorage.getItem('sheepHighScore') || 0;
+        let gameActive = false;
+        let sheepCount = 0;
+
+        highScoreElement.textContent = highScore;
+
+        function createSheep() {
+            const sheep = document.createElement('div');
+            sheep.className = 'sheep';
+            sheep.id = 'sheep-' + sheepCount++;
+
+            // Случайная позиция в пределах pasture1
+            const maxX = pasture1.offsetWidth - 60;
+            const maxY = pasture1.offsetHeight - 60;
+
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+
+            sheep.style.left = x + 'px';
+            sheep.style.top = y + 'px';
+
+            sheep.addEventListener('click', moveSheep);
+
+            pasture1.appendChild(sheep);
+            return sheep;
+        }
+
+        function moveSheep(event) {
+            if (!gameActive) return;
+
+            const sheep = event.target;
+
+            // Определяем, в каком пастбище находится овца
+            const currentPasture = sheep.parentNode;
+            const targetPasture = currentPasture === pasture1 ? pasture2 : pasture1;
+
+            // Перемещаем овцу
+            targetPasture.appendChild(sheep);
+
+            // Обновляем позицию
+            const maxX = targetPasture.offsetWidth - 60;
+            const maxY = targetPasture.offsetHeight - 60;
+
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+
+            sheep.style.left = x + 'px';
+            sheep.style.top = y + 'px';
+
+            // Увеличиваем счет
+            score++;
+            scoreElement.textContent = score;
+
+            // Проверяем рекорд
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                localStorage.setItem('sheepHighScore', highScore);
+            }
+
+            // Случайное сообщение
+            const messages = [
+                "Отличная работа!",
+                "Ты настоящий пастух!",
+                "Овечка счастлива!",
+                "Молодец!",
+                "Продолжай в том же духе!",
+                "Бе-е-е! (спасибо)"
+            ];
+
+            messageElement.textContent = messages[Math.floor(Math.random() * messages.length)];
+
+            // Исчезает через 2 секунды
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 2000);
+        }
+
+        function startGame() {
+            gameActive = true;
+            score = 0;
+            scoreElement.textContent = score;
+
+            // Очищаем пастбища
+            pasture1.innerHTML = '<h2>Старое пастбище</h2>';
+            pasture2.innerHTML = '<h2>Новое пастбище</h2>';
+
+            // Создаем 5 овец
+            for (let i = 0; i < 5; i++) {
+                createSheep();
+            }
+
+            startBtn.textContent = "Перезапустить игру";
+            messageElement.textContent = "Игра началась! Переведи всех овец на новое пастбище!";
+
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 3000);
+        }
+
+        startBtn.addEventListener('click', startGame);
+
+        addSheepBtn.addEventListener('click', () => {
+            if (gameActive) {
+                createSheep();
+                messageElement.textContent = "Новая овечка появилась!";
+
+                setTimeout(() => {
+                    messageElement.textContent = '';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
